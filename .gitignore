@@ -1,0 +1,16 @@
+# Ignored Files
+
+*.class
+*.log
+*.tmp
+*.png
+
+.classpath
+.settings/
+.project
+
+ test-output/
+ logs/
+ target/
+
+
