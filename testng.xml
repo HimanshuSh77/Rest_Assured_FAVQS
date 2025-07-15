@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="FAVQS Rest API">
+<listeners>
+<listener class-name="com.test.listeners.TestListener"/>
+</listeners>
+<test name="FAVQS Test">
+<classes>
+<class name=""/>
+
+<!--methods>
+<include name="getOrganizationOfAnActionTest"/>
+</methods!-->
+
+</classes>
+</test>
+</suite>
+<!-- Suite -->
