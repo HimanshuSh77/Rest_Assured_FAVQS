@@ -7,7 +7,7 @@
 <test name="FAVQS Test">
 <classes>
 <class name="com.favqs.tests.UsersTest"/>
-
+<class name="com.favqs.tests.QuotesTest"/>
 <!--methods>
 <include name="getOrganizationOfAnActionTest"/>
 </methods!-->

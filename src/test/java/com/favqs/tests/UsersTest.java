@@ -99,8 +99,9 @@ public class UsersTest {
 	public void clear() {
 
 		headers.clear();
+		pathParams.clear();
 		userService = null;
-		pathParams = null;
+		 
 
 	}
 
