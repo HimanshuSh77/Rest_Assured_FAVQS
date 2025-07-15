@@ -43,7 +43,7 @@ public class BaseService {
 
 		RequestSpecification requestSpecification = requestspecificationSetUp(basePath, headers, pathParams);
 
-		return given().spec(requestSpecification).log().all().put();
+		return given().spec(requestSpecification).log().all().body(payload).put();
 
 	}
 

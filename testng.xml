@@ -2,11 +2,11 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="FAVQS Rest API">
 <listeners>
-<listener class-name="com.test.listeners.TestListener"/>
+<listener class-name="com.favqs.listeners.TestListener"/>
 </listeners>
 <test name="FAVQS Test">
 <classes>
-<class name=""/>
+<class name="com.favqs.tests.UsersTest"/>
 
 <!--methods>
 <include name="getOrganizationOfAnActionTest"/>

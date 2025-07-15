@@ -10,7 +10,8 @@ import org.testng.annotations.Test;
 import com.favqs.base.UsersService;
 import com.favqs.util.PropertyFileUtil;
 import com.github.javafaker.Faker;
-import com.model.request.CreateUser;
+import com.model.request.CreateUserRequestPayload;
+import com.model.response.GetUserResponsePayload;
 
 import io.restassured.response.Response;
 
@@ -42,7 +43,7 @@ public class UsersTest {
 		email = login.concat("@gamil.com");
 		String Password = randomData.internet().password();
 
-		CreateUser userPayload = new CreateUser(login, email, Password);
+		CreateUserRequestPayload userPayload = new CreateUserRequestPayload(login, email, Password);
 
 		Response response = userService.createAnUser("", headers, pathParams, userPayload);
 
@@ -55,12 +56,51 @@ public class UsersTest {
 
 	}
 
+	@Test(description = "Verify Get Users API", dependsOnMethods = { "createAnUserTest" },priority =1)
+	public void getAnUserTest() {
+
+		headers.put("User-Token", PropertyFileUtil.getProperty("User-Token"));
+
+		Response response = userService.getAnUser(login, headers, pathParams);
+		GetUserResponsePayload responsePayload = response.as(GetUserResponsePayload.class);
+
+		Assert.assertEquals(response.getStatusCode(), 200, "Invalid Status Code Detected");
+		Assert.assertEquals(responsePayload.getLogin(), login, "Invalid Login Name Detected");
+
+		System.out.println(response.then().log().all());
+
+	}
+	
+	
+	@Test(description = "Verify Update Users API", dependsOnMethods = { "createAnUserTest" },priority =2)
+	public void updateAnUserTest() {
+		
+		Faker randomData = new Faker();
+		String updated_Login = randomData.name().firstName().concat("_test").toLowerCase();
+		String updated_Email = login.concat("@gamil.com");
+		String Password = randomData.internet().password();
+
+		CreateUserRequestPayload userPayload = new CreateUserRequestPayload(updated_Login, updated_Email, Password);
+
+
+		headers.put("User-Token", PropertyFileUtil.getProperty("User-Token"));
+
+		Response response = userService.updateAnUser(login, headers, pathParams,userPayload);
+
+		Assert.assertEquals(response.getStatusCode(), 200, "Invalid Status Code Detected");
+		Assert.assertEquals(response.getBody().jsonPath().getString("message"), "User successfully updated.", "Invalid Message Detected");
+
+		System.out.println(response.then().log().all());
+
+	}
+
+
 	@AfterMethod
 	public void clear() {
 
 		headers.clear();
 		userService = null;
-		pathParams=null;
+		pathParams = null;
 
 	}
 

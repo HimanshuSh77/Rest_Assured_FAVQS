@@ -1,10 +1,10 @@
 package com.model.request;
 
-public class CreateUser {
+public class CreateUserRequestPayload {
 
 	private User user;
 
-	public CreateUser(String login, String email, String password) {
+	public CreateUserRequestPayload(String login, String email, String password) {
 		this.user = new User(login, email, password);
 	}
 
