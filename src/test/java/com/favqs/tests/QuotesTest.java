@@ -55,11 +55,10 @@ public class QuotesTest {
 		Assert.assertEquals(response.getBody().jsonPath().getString("body"), quote, "Invalid Author Name Detected");
 
 		quoteId = response.getBody().jsonPath().getString("id");
-		System.out.println(response.then().log().all());
 
 	}
 
-	@Test(description = "Verify Hide Quote API", dependsOnMethods = {"addAnQuoteTest"},priority = 2)
+	@Test(description = "Verify Hide Quote API", dependsOnMethods = { "addAnQuoteTest" }, priority = 2)
 	public void hideAnQuoteTest() {
 
 		Response response = quoteService.updateAnQuote(quoteId + "/hide", headers, queryParams, "");
@@ -69,11 +68,9 @@ public class QuotesTest {
 		Assert.assertEquals(response.getBody().jsonPath().getString("body"), quote, "Invalid Author Name Detected");
 		Assert.assertTrue(response.getBody().jsonPath().getBoolean("user_details.hidden"), "Quote is Not Hidded Yet");
 
-		System.out.println(response.then().log().all());
-
 	}
 
-	@Test(description = "Verify Mark Favourite Quote API", dependsOnMethods = {"addAnQuoteTest"},priority = 1)
+	@Test(description = "Verify Mark Favourite Quote API", dependsOnMethods = { "addAnQuoteTest" }, priority = 1)
 	public void markAnQuoteFavTest() {
 
 		Response response = quoteService.updateAnQuote(quoteId + "/fav", headers, queryParams, "");
@@ -83,12 +80,8 @@ public class QuotesTest {
 		Assert.assertEquals(response.getBody().jsonPath().getString("body"), quote, "Invalid Author Name Detected");
 		Assert.assertTrue(response.getBody().jsonPath().getBoolean("user_details.favorite"), "Quote is Not Hidded Yet");
 
-		System.out.println(response.then().log().all());
-
 	}
 
-	
-	
 	@AfterMethod
 	public void clear() {
 

@@ -45,31 +45,28 @@ public class ActivityTest {
 
 		Assert.assertEquals(response.getStatusCode(), 200, "Invalid Status Code Detected");
 		activityID = response.getBody().jsonPath().getString("activity_id");
-		System.out.println(response.then().log().all());
 
 	}
 
 	@Test(description = "Verify Follow Activity API")
 	public void followAnActivityTest() {
-		
+
 		queryParams.put("type", "author");
 
 		Response response = activityService.updateAnActivity("follow", headers, queryParams, "");
 
 		Assert.assertEquals(response.getStatusCode(), 204, "Invalid Status Code Detected");
-		System.out.println(response.then().log().all());
 
 	}
 
 	@Test(description = "Verify Un-Follow Activity API", dependsOnMethods = { "followAnActivityTest" })
 	public void unfollowAnActivityTest() {
-		
+
 		queryParams.put("type", "author");
 
 		Response response = activityService.updateAnActivity("unfollow", headers, queryParams, "");
 
 		Assert.assertEquals(response.getStatusCode(), 204, "Invalid Status Code Detected");
-		System.out.println(response.then().log().all());
 
 	}
 
@@ -79,7 +76,6 @@ public class ActivityTest {
 		Response response = activityService.deleteAnActivity(activityID, headers, queryParams);
 
 		Assert.assertEquals(response.getStatusCode(), 200, "Invalid Status Code Detected");
-		System.out.println(response.then().log().all());
 
 	}
 

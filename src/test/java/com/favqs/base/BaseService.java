@@ -4,6 +4,8 @@ import static io.restassured.RestAssured.*;
 
 import java.util.HashMap;
 
+import com.favqs.util.LoggingFilter;
+
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -25,6 +27,7 @@ public class BaseService {
 
 		spec.setBaseUri(BASE_URL + basePath);
 		spec.setContentType(ContentType.JSON);
+		spec.addFilter(new LoggingFilter());
 
 		return spec.build();
 
@@ -35,7 +38,7 @@ public class BaseService {
 
 		RequestSpecification requestSpecification = requestspecificationSetUp(basePath, headers, queryParams);
 
-		return given().spec(requestSpecification).log().all().get();
+		return given().spec(requestSpecification).get();
 	}
 
 	protected Response putRequest(String basePath, HashMap<String, String> headers, HashMap<String, String> queryParams,
@@ -43,7 +46,7 @@ public class BaseService {
 
 		RequestSpecification requestSpecification = requestspecificationSetUp(basePath, headers, queryParams);
 
-		return given().spec(requestSpecification).log().all().body(payload).put();
+		return given().spec(requestSpecification).body(payload).put();
 
 	}
 
@@ -52,7 +55,7 @@ public class BaseService {
 
 		RequestSpecification requestSpecification = requestspecificationSetUp(basePath, headers, queryParams);
 
-		return given().spec(requestSpecification).log().all().body(payload).post();
+		return given().spec(requestSpecification).body(payload).post();
 
 	}
 
@@ -61,7 +64,7 @@ public class BaseService {
 
 		RequestSpecification requestSpecification = requestspecificationSetUp(basePath, headers, queryParams);
 
-		return given().spec(requestSpecification).log().all().delete();
+		return given().spec(requestSpecification).delete();
 
 	}
 

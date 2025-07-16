@@ -52,11 +52,9 @@ public class UsersTest {
 
 		PropertyFileUtil.setProperty("User-Token", response.getBody().jsonPath().getString("User-Token"));
 
-		System.out.println(response.then().log().all());
-
 	}
 
-	@Test(description = "Verify Get Users API", dependsOnMethods = { "createAnUserTest" },priority =1)
+	@Test(description = "Verify Get Users API", dependsOnMethods = { "createAnUserTest" }, priority = 1)
 	public void getAnUserTest() {
 
 		headers.put("User-Token", PropertyFileUtil.getProperty("User-Token"));
@@ -67,14 +65,11 @@ public class UsersTest {
 		Assert.assertEquals(response.getStatusCode(), 200, "Invalid Status Code Detected");
 		Assert.assertEquals(responsePayload.getLogin(), login, "Invalid Login Name Detected");
 
-		System.out.println(response.then().log().all());
-
 	}
-	
-	
-	@Test(description = "Verify Update Users API", dependsOnMethods = { "createAnUserTest" },priority =2)
+
+	@Test(description = "Verify Update Users API", dependsOnMethods = { "createAnUserTest" }, priority = 2)
 	public void updateAnUserTest() {
-		
+
 		Faker randomData = new Faker();
 		String updated_Login = randomData.name().firstName().concat("_test").toLowerCase();
 		String updated_Email = login.concat("@gamil.com");
@@ -82,18 +77,15 @@ public class UsersTest {
 
 		CreateUserRequestPayload userPayload = new CreateUserRequestPayload(updated_Login, updated_Email, Password);
 
-
 		headers.put("User-Token", PropertyFileUtil.getProperty("User-Token"));
 
-		Response response = userService.updateAnUser(login, headers, queryParams,userPayload);
+		Response response = userService.updateAnUser(login, headers, queryParams, userPayload);
 
 		Assert.assertEquals(response.getStatusCode(), 200, "Invalid Status Code Detected");
-		Assert.assertEquals(response.getBody().jsonPath().getString("message"), "User successfully updated.", "Invalid Message Detected");
-
-		System.out.println(response.then().log().all());
+		Assert.assertEquals(response.getBody().jsonPath().getString("message"), "User successfully updated.",
+				"Invalid Message Detected");
 
 	}
-
 
 	@AfterMethod
 	public void clear() {
@@ -101,7 +93,6 @@ public class UsersTest {
 		headers.clear();
 		queryParams.clear();
 		userService = null;
-		 
 
 	}
 
