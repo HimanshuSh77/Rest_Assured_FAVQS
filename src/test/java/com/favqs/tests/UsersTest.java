@@ -18,7 +18,7 @@ import io.restassured.response.Response;
 public class UsersTest {
 
 	private static HashMap<String, String> headers;
-	private static HashMap<String, String> pathParams;
+	private static HashMap<String, String> queryParams;
 	private static UsersService userService;
 	private static String login;
 	private static String email;
@@ -26,7 +26,7 @@ public class UsersTest {
 	@BeforeMethod
 	public void setUp() {
 
-		pathParams = new HashMap<String, String>();
+		queryParams = new HashMap<String, String>();
 
 		headers = new HashMap<String, String>();
 		headers.put("Authorization", PropertyFileUtil.getProperty("Authorization"));
@@ -45,7 +45,7 @@ public class UsersTest {
 
 		CreateUserRequestPayload userPayload = new CreateUserRequestPayload(login, email, Password);
 
-		Response response = userService.createAnUser("", headers, pathParams, userPayload);
+		Response response = userService.createAnUser("", headers, queryParams, userPayload);
 
 		Assert.assertEquals(response.getStatusCode(), 200, "Invalid Status Code Detected");
 		Assert.assertEquals(response.getBody().jsonPath().getString("login"), login, "Invalid Login Name Detected");
@@ -61,7 +61,7 @@ public class UsersTest {
 
 		headers.put("User-Token", PropertyFileUtil.getProperty("User-Token"));
 
-		Response response = userService.getAnUser(login, headers, pathParams);
+		Response response = userService.getAnUser(login, headers, queryParams);
 		GetUserResponsePayload responsePayload = response.as(GetUserResponsePayload.class);
 
 		Assert.assertEquals(response.getStatusCode(), 200, "Invalid Status Code Detected");
@@ -85,7 +85,7 @@ public class UsersTest {
 
 		headers.put("User-Token", PropertyFileUtil.getProperty("User-Token"));
 
-		Response response = userService.updateAnUser(login, headers, pathParams,userPayload);
+		Response response = userService.updateAnUser(login, headers, queryParams,userPayload);
 
 		Assert.assertEquals(response.getStatusCode(), 200, "Invalid Status Code Detected");
 		Assert.assertEquals(response.getBody().jsonPath().getString("message"), "User successfully updated.", "Invalid Message Detected");
@@ -99,7 +99,7 @@ public class UsersTest {
 	public void clear() {
 
 		headers.clear();
-		pathParams.clear();
+		queryParams.clear();
 		userService = null;
 		 
 

@@ -8,10 +8,7 @@
 <classes>
 <class name="com.favqs.tests.UsersTest"/>
 <class name="com.favqs.tests.QuotesTest"/>
-<!--methods>
-<include name="getOrganizationOfAnActionTest"/>
-</methods!-->
-
+<class name="com.favqs.tests.ActivityTest"/>
 </classes>
 </test>
 </suite>

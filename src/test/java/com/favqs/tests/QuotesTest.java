@@ -20,7 +20,7 @@ import io.restassured.response.Response;
 public class QuotesTest {
 
 	private static HashMap<String, String> headers;
-	private static HashMap<String, String> pathParams;
+	private static HashMap<String, String> queryParams;
 	private static QuotesService quoteService;
 	private String quoteId;
 	private String author;
@@ -29,7 +29,7 @@ public class QuotesTest {
 	@BeforeMethod
 	public void setUp() {
 
-		pathParams = new HashMap<String, String>();
+		queryParams = new HashMap<String, String>();
 
 		headers = new HashMap<String, String>();
 		headers.put("Authorization", PropertyFileUtil.getProperty("Authorization"));
@@ -48,7 +48,7 @@ public class QuotesTest {
 
 		CreateQuoteRequestPayload requestPayload = new CreateQuoteRequestPayload(author, quote);
 
-		Response response = quoteService.addAnQuote("", headers, pathParams, requestPayload);
+		Response response = quoteService.addAnQuote("", headers, queryParams, requestPayload);
 
 		Assert.assertEquals(response.getStatusCode(), 200, "Invalid Status Code Detected");
 		Assert.assertEquals(response.getBody().jsonPath().getString("author"), author, "Invalid Author Name Detected");
@@ -62,7 +62,7 @@ public class QuotesTest {
 	@Test(description = "Verify Hide Quote API", dependsOnMethods = {"addAnQuoteTest"},priority = 2)
 	public void hideAnQuoteTest() {
 
-		Response response = quoteService.updateAnQuote(quoteId + "/hide", headers, pathParams, "");
+		Response response = quoteService.updateAnQuote(quoteId + "/hide", headers, queryParams, "");
 
 		Assert.assertEquals(response.getStatusCode(), 200, "Invalid Status Code Detected");
 		Assert.assertEquals(response.getBody().jsonPath().getString("author"), author, "Invalid Author Name Detected");
@@ -76,7 +76,7 @@ public class QuotesTest {
 	@Test(description = "Verify Mark Favourite Quote API", dependsOnMethods = {"addAnQuoteTest"},priority = 1)
 	public void markAnQuoteFavTest() {
 
-		Response response = quoteService.updateAnQuote(quoteId + "/fav", headers, pathParams, "");
+		Response response = quoteService.updateAnQuote(quoteId + "/fav", headers, queryParams, "");
 
 		Assert.assertEquals(response.getStatusCode(), 200, "Invalid Status Code Detected");
 		Assert.assertEquals(response.getBody().jsonPath().getString("author"), author, "Invalid Author Name Detected");
@@ -93,7 +93,7 @@ public class QuotesTest {
 	public void clear() {
 
 		headers.clear();
-		pathParams.clear();
+		queryParams.clear();
 		quoteService = null;
 
 	}
