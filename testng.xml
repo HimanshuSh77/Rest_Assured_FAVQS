@@ -3,6 +3,7 @@
 <suite name="FAVQS Rest API">
 <listeners>
 <listener class-name="com.favqs.listeners.TestListener"/>
+<listener class-name="com.favqs.listeners.RetryListener"/>
 </listeners>
 <test name="FAVQS Test">
 <classes>

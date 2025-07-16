@@ -8,12 +8,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.favqs.base.QuotesService;
-import com.favqs.base.UsersService;
 import com.favqs.util.PropertyFileUtil;
 import com.github.javafaker.Faker;
 import com.model.request.CreateQuoteRequestPayload;
-import com.model.request.CreateUserRequestPayload;
-import com.model.response.GetUserResponsePayload;
 
 import io.restassured.response.Response;
 
@@ -39,7 +36,7 @@ public class QuotesTest {
 
 	}
 
-	@Test(description = "Verify Add Quote API")
+	@Test(description = "Verify Add Quote API", priority = 1)
 	public void addAnQuoteTest() {
 
 		Faker randomData = new Faker();
@@ -58,7 +55,7 @@ public class QuotesTest {
 
 	}
 
-	@Test(description = "Verify Hide Quote API", dependsOnMethods = { "addAnQuoteTest" }, priority = 2)
+	@Test(description = "Verify Hide Quote API", dependsOnMethods = { "addAnQuoteTest" }, priority = 3)
 	public void hideAnQuoteTest() {
 
 		Response response = quoteService.updateAnQuote(quoteId + "/hide", headers, queryParams, "");
@@ -70,7 +67,7 @@ public class QuotesTest {
 
 	}
 
-	@Test(description = "Verify Mark Favourite Quote API", dependsOnMethods = { "addAnQuoteTest" }, priority = 1)
+	@Test(description = "Verify Mark Favourite Quote API", dependsOnMethods = { "addAnQuoteTest" }, priority = 2)
 	public void markAnQuoteFavTest() {
 
 		Response response = quoteService.updateAnQuote(quoteId + "/fav", headers, queryParams, "");

@@ -8,13 +8,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.favqs.base.ActivityService;
-import com.favqs.base.QuotesService;
-import com.favqs.base.UsersService;
 import com.favqs.util.PropertyFileUtil;
-import com.github.javafaker.Faker;
-import com.model.request.CreateQuoteRequestPayload;
-import com.model.request.CreateUserRequestPayload;
-import com.model.response.GetUserResponsePayload;
 
 import io.restassured.response.Response;
 
@@ -38,17 +32,17 @@ public class ActivityTest {
 
 	}
 
-	@Test(description = "Verify Get Activity API")
-	public void addAnQuoteTest() {
+	@Test(description = "Verify Get Activity API", priority = 1)
+	public void getAnActivityTest() {
 
 		Response response = activityService.getAnActivity("", headers, queryParams);
 
 		Assert.assertEquals(response.getStatusCode(), 200, "Invalid Status Code Detected");
-		activityID = response.getBody().jsonPath().getString("activity_id");
+		activityID = response.getBody().jsonPath().getString("activities.activity_id");
 
 	}
 
-	@Test(description = "Verify Follow Activity API")
+	@Test(description = "Verify Follow Activity API", priority = 2)
 	public void followAnActivityTest() {
 
 		queryParams.put("type", "author");
@@ -59,7 +53,7 @@ public class ActivityTest {
 
 	}
 
-	@Test(description = "Verify Un-Follow Activity API", dependsOnMethods = { "followAnActivityTest" })
+	@Test(description = "Verify Un-Follow Activity API", dependsOnMethods = { "followAnActivityTest" }, priority = 3)
 	public void unfollowAnActivityTest() {
 
 		queryParams.put("type", "author");
@@ -70,10 +64,12 @@ public class ActivityTest {
 
 	}
 
-	@Test(description = "Verify Delete Activity API", dependsOnMethods = { "addAnQuoteTest" })
+	@Test(description = "Verify Delete Activity API", dependsOnMethods = { "getAnActivityTest" }, priority = 4)
 	public void deleteAnActivityTest() {
 
-		Response response = activityService.deleteAnActivity(activityID, headers, queryParams);
+		String activity = activityID.replaceAll("[^a-zA-Z0-9]", "");
+
+		Response response = activityService.deleteAnActivity(activity, headers, queryParams);
 
 		Assert.assertEquals(response.getStatusCode(), 200, "Invalid Status Code Detected");
 

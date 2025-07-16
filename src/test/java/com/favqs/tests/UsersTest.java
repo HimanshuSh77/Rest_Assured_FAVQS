@@ -39,7 +39,7 @@ public class UsersTest {
 
 	}
 
-	@Test(description = "Verify Create Users API")
+	@Test(description = "Verify Create Users API", priority = 1)
 	public void createAnUserTest() {
 
 		Faker randomData = new Faker();
@@ -58,7 +58,7 @@ public class UsersTest {
 
 	}
 
-	@Test(description = "Verify Get Users API", dependsOnMethods = { "createAnUserTest" }, priority = 1)
+	@Test(description = "Verify Get Users API", dependsOnMethods = { "createAnUserTest" }, priority = 2)
 	public void getAnUserTest() throws IOException {
 
 		String schemaPath=System.getProperty("user.dir")+"/test-data/Schemas/GetUserResponseSchema.schema.json";
@@ -74,7 +74,7 @@ public class UsersTest {
 
 	}
 
-	@Test(description = "Verify Update Users API", dependsOnMethods = { "createAnUserTest" }, priority = 2)
+	@Test(description = "Verify Update Users API", dependsOnMethods = { "createAnUserTest" }, priority = 3)
 	public void updateAnUserTest() {
 
 		Faker randomData = new Faker();
