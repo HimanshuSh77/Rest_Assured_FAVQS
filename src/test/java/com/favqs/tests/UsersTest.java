@@ -1,5 +1,8 @@
 package com.favqs.tests;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 import org.testng.Assert;
@@ -13,6 +16,7 @@ import com.github.javafaker.Faker;
 import com.model.request.CreateUserRequestPayload;
 import com.model.response.GetUserResponsePayload;
 
+import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
 
 public class UsersTest {
@@ -55,8 +59,9 @@ public class UsersTest {
 	}
 
 	@Test(description = "Verify Get Users API", dependsOnMethods = { "createAnUserTest" }, priority = 1)
-	public void getAnUserTest() {
+	public void getAnUserTest() throws IOException {
 
+		String schemaPath=System.getProperty("user.dir")+"/test-data/Schemas/GetUserResponseSchema.schema.json";
 		headers.put("User-Token", PropertyFileUtil.getProperty("User-Token"));
 
 		Response response = userService.getAnUser(login, headers, queryParams);
@@ -64,6 +69,8 @@ public class UsersTest {
 
 		Assert.assertEquals(response.getStatusCode(), 200, "Invalid Status Code Detected");
 		Assert.assertEquals(responsePayload.getLogin(), login, "Invalid Login Name Detected");
+		
+		response.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema( new String (Files.readAllBytes(Paths.get(schemaPath)))));
 
 	}
 
