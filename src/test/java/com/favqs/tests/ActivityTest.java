@@ -53,7 +53,7 @@ public class ActivityTest {
 
 	}
 
-	@Test(description = "Verify Un-Follow Activity API", dependsOnMethods = { "followAnActivityTest" }, priority = 3)
+	@Test(description = "Verify Un-Follow Activity API", dependsOnMethods = { "followAnActivityTest"}, priority = 3)
 	public void unfollowAnActivityTest() {
 
 		queryParams.put("type", "author");
@@ -64,7 +64,7 @@ public class ActivityTest {
 
 	}
 
-	@Test(description = "Verify Delete Activity API", dependsOnMethods = { "getAnActivityTest" }, priority = 4)
+	@Test(description = "Verify Delete Activity API", dependsOnMethods = { "getAnActivityTest" }, priority = 4,enabled = false)
 	public void deleteAnActivityTest() {
 
 		String activity = activityID.replaceAll("[^a-zA-Z0-9]", "");

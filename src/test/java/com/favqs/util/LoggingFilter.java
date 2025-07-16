@@ -3,6 +3,9 @@ package com.favqs.util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.aventstack.extentreports.markuputils.CodeLanguage;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
+
 import io.restassured.filter.Filter;
 import io.restassured.filter.FilterContext;
 import io.restassured.response.Response;
@@ -17,25 +20,32 @@ public class LoggingFilter implements Filter {
 	public Response filter(FilterableRequestSpecification requestSpec, FilterableResponseSpecification responseSpec,
 			FilterContext ctx) {
 		logRequest(requestSpec);
-		Response response=ctx.next(requestSpec, responseSpec);
+		Response response = ctx.next(requestSpec, responseSpec);
 		logResponse(response);
-		
-		return response;//test for assertion
+
+		return response;// test for assertion
 	}
-	
+
 	public void logRequest(FilterableRequestSpecification requestSpec) {
-		logger.info("BASE URI:"+ requestSpec.getBaseUri());
-		logger.info("Request Header:"+ requestSpec.getHeaders());
-		logger.info("Request PayLoad:"+ requestSpec.getBody());
+		logger.info("BASE URI:" + requestSpec.getURI());
+		logger.info("Request Header:" + requestSpec.getHeaders());
+		logger.info("Request PayLoad:" + requestSpec.getBody());
 
-
+		ExtentReportingUtil.getTest().info("Request: " + requestSpec.getMethod() + " " + requestSpec.getURI());
+		ExtentReportingUtil.getTest().info("Request Headers : " + requestSpec.getHeaders().toString());
+		ExtentReportingUtil.getTest().info(MarkupHelper.createCodeBlock(
+				(requestSpec.getBody()) != null ? requestSpec.getBody().toString() : "<Null or Empty>", CodeLanguage.JSON));
 
 	}
-	
+
 	public void logResponse(Response response) {
-		logger.info("STATUS CODE:"+ response.getStatusCode());
-		logger.info("Response Header :"+ response.headers());
-		logger.info("Request Body:"+ response.getBody().prettyPrint());
+		logger.info("STATUS CODE:" + response.getStatusCode());
+		logger.info("Response Header :" + response.headers());
+		logger.info("Request Body:" + response.getBody().prettyPrint());
+
+		ExtentReportingUtil.getTest().info("Response Code : " + response.getStatusCode());
+		ExtentReportingUtil.getTest().info(MarkupHelper.createCodeBlock(
+				(response.getBody()) != null ? response.asPrettyString() : "<Null or Empty>", CodeLanguage.JSON));
 	}
 
 }
