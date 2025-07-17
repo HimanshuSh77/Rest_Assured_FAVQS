@@ -32,7 +32,7 @@ public class ActivityTest {
 
 	}
 
-	@Test(description = "Verify Get Activity API", priority = 1)
+	@Test(description = "Verify Get Activity API",dependsOnGroups = {"user"}, priority = 1)
 	public void getAnActivityTest() {
 
 		Response response = activityService.getAnActivity("", headers, queryParams);
@@ -64,7 +64,7 @@ public class ActivityTest {
 
 	}
 
-	@Test(description = "Verify Delete Activity API", dependsOnMethods = { "getAnActivityTest" }, priority = 4,enabled = false)
+	@Test(description = "Verify Delete Activity API", dependsOnMethods = { "getAnActivityTest" }, priority = 4,enabled=true)
 	public void deleteAnActivityTest() {
 
 		String activity = activityID.replaceAll("[^a-zA-Z0-9]", "");

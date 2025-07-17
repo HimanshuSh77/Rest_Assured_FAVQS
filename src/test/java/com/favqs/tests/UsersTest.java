@@ -39,11 +39,11 @@ public class UsersTest {
 
 	}
 
-	@Test(description = "Verify Create Users API", priority = 1)
+	@Test(description = "Verify Create Users API",groups = {"user"}, priority = 1)
 	public void createAnUserTest() {
 
 		Faker randomData = new Faker();
-		login = randomData.name().firstName().concat("_test").toLowerCase();
+		login = randomData.name().firstName().concat("_testuser").toLowerCase();
 		email = login.concat("@gamil.com");
 		String Password = randomData.internet().password();
 
