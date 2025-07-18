@@ -21,7 +21,7 @@ public class QuotesService extends BaseService {
 	public Response addAnQuote(String endpoint, HashMap<String, String> headers, HashMap<String, String> queryParams,
 			Object payload) {
 
-		return postRequest(payload, BASE_PATH + endpoint,headers,queryParams,payload);
+		return postRequest(BASE_PATH + endpoint,headers,queryParams,payload);
 	}
 
 	public Response deleteAnQuote(String endpoint, HashMap<String, String> headers, HashMap<String, String> queryParams) {

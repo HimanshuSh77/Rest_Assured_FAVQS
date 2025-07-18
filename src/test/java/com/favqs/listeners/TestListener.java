@@ -1,7 +1,5 @@
 package com.favqs.listeners;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
@@ -48,11 +46,11 @@ public class TestListener implements ITestListener {
 	public void onTestFailure(ITestResult result) {
 		 if (!shouldReport(result)) return;
 
-			LogUtil.log("Failed!!!!" + result.getMethod().getMethodName() + "with Error : " + result.getThrowable());
-			LogUtil.flush(result.getMethod().getMethodName());
-			ExtentReportingUtil.getTest().log(Status.FAIL,
+		 LogUtil.log("Failed!!!!" + result.getMethod().getMethodName() + "with Error : " + result.getThrowable());
+		 LogUtil.flush(result.getMethod().getMethodName());
+		 ExtentReportingUtil.getTest().log(Status.FAIL,
 					result.getMethod().getMethodName() + " is Failed with error :" + result.getThrowable());
-			ExtentReportingUtil.removeTest();
+		 ExtentReportingUtil.removeTest();
 
 		
 	}
@@ -60,15 +58,16 @@ public class TestListener implements ITestListener {
 	public void onTestSkipped(ITestResult result) {
 		 if (!shouldReport(result)) return;
 		
-			ITestContext context = result.getTestContext();
-			ITestNGMethod method = result.getMethod();
+		 ITestContext context = result.getTestContext();
+		 ITestNGMethod method = result.getMethod();
 
-			if (context.getPassedTests().getResults(method).size() > 0
-					|| context.getFailedTests().getResults(method).size() > 0) {
-				System.out.println("-------------------------------------------------Enter---------------");
+		 if (context.getPassedTests().getResults(method).size() > 0
+					|| context.getFailedTests().getResults(method).size() > 0)
+		 {
+		        System.out.println("-------------------------------------------------Enter---------------");
 
 				return;
-			}
+		 }
 
 			LogUtil.log("Skipped!!!!" + result.getMethod().getMethodName());
 			LogUtil.flush(result.getMethod().getMethodName());

@@ -25,14 +25,13 @@ public class UsersTest {
 	private static HashMap<String, String> queryParams;
 	private static UsersService userService;
 	private static String login;
-	private static String email;
 
-	@BeforeMethod
+    @BeforeMethod
 	public void setUp() {
 
-		queryParams = new HashMap<String, String>();
+		queryParams = new HashMap<>();
 
-		headers = new HashMap<String, String>();
+		headers = new HashMap<>();
 		headers.put("Authorization", PropertyFileUtil.getProperty("Authorization"));
 
 		userService = new UsersService();
@@ -43,8 +42,8 @@ public class UsersTest {
 	public void createAnUserTest() {
 
 		Faker randomData = new Faker();
-		login = randomData.name().firstName().concat("_testuser").toLowerCase();
-		email = login.concat("@gamil.com");
+		login = randomData.name().firstName().concat("_test_user").toLowerCase();
+        String email = login.concat("@gmail.com");
 		String Password = randomData.internet().password();
 
 		CreateUserRequestPayload userPayload = new CreateUserRequestPayload(login, email, Password);
@@ -79,7 +78,7 @@ public class UsersTest {
 
 		Faker randomData = new Faker();
 		String updated_Login = randomData.name().firstName().concat("_test").toLowerCase();
-		String updated_Email = login.concat("@gamil.com");
+		String updated_Email = login.concat("@gmail.com");
 		String Password = randomData.internet().password();
 
 		CreateUserRequestPayload userPayload = new CreateUserRequestPayload(updated_Login, updated_Email, Password);

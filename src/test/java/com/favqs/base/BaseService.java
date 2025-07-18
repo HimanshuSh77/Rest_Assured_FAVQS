@@ -15,13 +15,13 @@ public class BaseService {
 
 	private static final String BASE_URL = "https://favqs.com/";
 
-	private RequestSpecification requestspecificationSetUp(String basePath, HashMap<String, String> headers,
+	private RequestSpecification requestspecification(String basePath, HashMap<String, String> headers,
 			HashMap<String, String> queryParams) {
 		RequestSpecBuilder spec = new RequestSpecBuilder();
-		if (!headers.isEmpty() || headers != null) {
+		if (!headers.isEmpty()) {
 			spec.addHeaders(headers);
 		}
-		if (!queryParams.isEmpty() || queryParams != null) {
+		if (!queryParams.isEmpty()) {
 			spec.addQueryParams(queryParams);
 		}
 
@@ -36,7 +36,7 @@ public class BaseService {
 	protected Response getRequest(String basePath, HashMap<String, String> headers,
 			HashMap<String, String> queryParams) {
 
-		RequestSpecification requestSpecification = requestspecificationSetUp(basePath, headers, queryParams);
+		RequestSpecification requestSpecification = requestspecification(basePath, headers, queryParams);
 
 		return given().spec(requestSpecification).get();
 	}
@@ -44,16 +44,16 @@ public class BaseService {
 	protected Response putRequest(String basePath, HashMap<String, String> headers, HashMap<String, String> queryParams,
 			Object payload) {
 
-		RequestSpecification requestSpecification = requestspecificationSetUp(basePath, headers, queryParams);
+		RequestSpecification requestSpecification = requestspecification(basePath, headers, queryParams);
 
 		return given().spec(requestSpecification).body(payload).put();
 
 	}
 
-	protected Response postRequest(Object payload, String basePath, HashMap<String, String> headers,
-			HashMap<String, String> queryParams, Object payload2) {
+	protected Response postRequest( String basePath, HashMap<String, String> headers,
+			HashMap<String, String> queryParams, Object payload) {
 
-		RequestSpecification requestSpecification = requestspecificationSetUp(basePath, headers, queryParams);
+		RequestSpecification requestSpecification = requestspecification(basePath, headers, queryParams);
 
 		return given().spec(requestSpecification).body(payload).post();
 
@@ -62,7 +62,7 @@ public class BaseService {
 	protected Response deleteRequest(String basePath, HashMap<String, String> headers,
 			HashMap<String, String> queryParams) {
 
-		RequestSpecification requestSpecification = requestspecificationSetUp(basePath, headers, queryParams);
+		RequestSpecification requestSpecification = requestspecification(basePath, headers, queryParams);
 
 		return given().spec(requestSpecification).delete();
 

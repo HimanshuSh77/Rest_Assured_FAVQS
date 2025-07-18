@@ -22,7 +22,7 @@ public class LogUtil {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("File Does Not Exists : "+e.getMessage());
         }
     }
  
@@ -43,7 +43,8 @@ public class LogUtil {
                 writer.write(buffer.get().toString());
                 writer.write("===== END " + testName + " =====\n\n");
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("File Does Not Exists : "+e.getMessage());
+                
             }
         }
         buffer.remove();

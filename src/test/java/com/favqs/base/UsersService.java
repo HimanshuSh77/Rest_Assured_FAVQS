@@ -21,7 +21,7 @@ public class UsersService extends BaseService {
 	public Response createAnUser(String endpoint, HashMap<String, String> headers, HashMap<String, String> queryParams,
 			Object payload) {
 
-		return postRequest(payload, BASE_PATH + endpoint,headers,queryParams,payload);
+		return postRequest(BASE_PATH + endpoint,headers,queryParams,payload);
 	}
 
 	public Response deleteAnUser(String endpoint, HashMap<String, String> headers, HashMap<String, String> queryParams) {

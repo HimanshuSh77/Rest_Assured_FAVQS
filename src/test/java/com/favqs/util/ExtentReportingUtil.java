@@ -7,20 +7,20 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 
 public class ExtentReportingUtil {
 
-	private static ExtentSparkReporter extentSparkReporter;
-	private static ExtentReports extentReports;
-	private static ThreadLocal<ExtentTest> extenttest = new ThreadLocal<>();
+    private static final ThreadLocal<ExtentTest> extent_test = new ThreadLocal<>();
 
 	public static ExtentReports reportSetup() {
 
-		extentSparkReporter = new ExtentSparkReporter(
-				System.getProperty("user.dir") + "/test-output/extentReport.html");
+        ExtentSparkReporter extentSparkReporter = new ExtentSparkReporter(
+                System.getProperty("user.dir") + "/test-output/extentReport.html");
 		extentSparkReporter.config().setDocumentTitle("Trello API Test");
 		extentSparkReporter.config().setReportName("Trello");
 		extentSparkReporter.config().setTimeStampFormat("EEEE, MMMM dd, yyyy, hh:mm a '('zzz')'");
 		extentSparkReporter.config().setTheme(Theme.STANDARD);
+		extentSparkReporter.config()
+				.setCss("body { overflow: auto !important;} " + ".nav-wrapper {overflow: auto !important; }");
 
-		extentReports = new ExtentReports();
+        ExtentReports extentReports = new ExtentReports();
 		extentReports.attachReporter(extentSparkReporter);
 
 		return extentReports;
@@ -29,17 +29,17 @@ public class ExtentReportingUtil {
 
 	public static ExtentTest getTest() {
 
-		return extenttest.get();
+		return extent_test.get();
 	}
 
-	public static void setTest(ExtentTest testname) {
+	public static void setTest(ExtentTest test_name) {
 
-		extenttest.set(testname);
+		extent_test.set(test_name);
 	}
 
 	public static void removeTest() {
 
-		extenttest.remove();
+		extent_test.remove();
 	}
 
 }

@@ -22,9 +22,9 @@ public class ActivityTest {
 	@BeforeMethod
 	public void setUp() {
 
-		queryParams = new HashMap<String, String>();
+		queryParams = new HashMap<>();
 
-		headers = new HashMap<String, String>();
+		headers = new HashMap<>();
 		headers.put("Authorization", PropertyFileUtil.getProperty("Authorization"));
 		headers.put("User-Token", PropertyFileUtil.getProperty("User-Token"));
 
@@ -64,12 +64,12 @@ public class ActivityTest {
 
 	}
 
-	@Test(description = "Verify Delete Activity API", dependsOnMethods = { "getAnActivityTest" }, priority = 4,enabled=true)
+	@Test(description = "Verify Delete Activity API", dependsOnMethods = { "getAnActivityTest" }, priority = 4)
 	public void deleteAnActivityTest() {
 
 		String activity = activityID.replaceAll("[^a-zA-Z0-9]", "");
 
-		Response response = activityService.deleteAnActivity(activity, headers, queryParams);
+		Response response = activityService.deleteAnActivity(activity+"11", headers, queryParams);
 
 		Assert.assertEquals(response.getStatusCode(), 200, "Invalid Status Code Detected");
 

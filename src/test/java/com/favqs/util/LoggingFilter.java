@@ -27,9 +27,9 @@ public class LoggingFilter implements Filter {
 	}
 
 	public void logRequest(FilterableRequestSpecification requestSpec) {
-//		logger.info("BASE URI:" + requestSpec.getURI());
-//		logger.info("Request Header:" + requestSpec.getHeaders());
-//		logger.info("Request PayLoad:" + requestSpec.getBody());
+		logger.info("BASE URI:" + requestSpec.getURI());
+		logger.info("Request Header:" + requestSpec.getHeaders());
+		logger.info("Request PayLoad:" + requestSpec.getBody());
 
 		String body = requestSpec.getBody() != null ? requestSpec.getBody().toString() : "<Null or Empty>";
 
@@ -44,9 +44,9 @@ public class LoggingFilter implements Filter {
 	}
 
 	public void logResponse(Response response) {
-//		logger.info("STATUS CODE:" + response.getStatusCode());
-//		logger.info("Response Header :" + response.headers());
-//		logger.info("Request Body:" + response.getBody().prettyPrint());
+		logger.info("STATUS CODE:" + response.getStatusCode());
+		logger.info("Response Header :" + response.headers());
+		logger.info("Request Body:" + response.getBody().prettyPrint());
 
 		String body = response.getBody() != null ? response.asPrettyString() : "<Null or Empty>";
 

@@ -26,9 +26,9 @@ public class QuotesTest {
 	@BeforeMethod
 	public void setUp() {
 
-		queryParams = new HashMap<String, String>();
+		queryParams = new HashMap<>();
 
-		headers = new HashMap<String, String>();
+		headers = new HashMap<>();
 		headers.put("Authorization", PropertyFileUtil.getProperty("Authorization"));
 		headers.put("User-Token", PropertyFileUtil.getProperty("User-Token"));
 
@@ -63,7 +63,7 @@ public class QuotesTest {
 		Assert.assertEquals(response.getStatusCode(), 200, "Invalid Status Code Detected");
 		Assert.assertEquals(response.getBody().jsonPath().getString("author"), author, "Invalid Author Name Detected");
 		Assert.assertEquals(response.getBody().jsonPath().getString("body"), quote, "Invalid Author Name Detected");
-		Assert.assertTrue(response.getBody().jsonPath().getBoolean("user_details.hidden"), "Quote is Not Hidded Yet");
+		Assert.assertTrue(response.getBody().jsonPath().getBoolean("user_details.hidden"), "Quote is Not Hidden Yet");
 
 	}
 
@@ -75,7 +75,7 @@ public class QuotesTest {
 		Assert.assertEquals(response.getStatusCode(), 200, "Invalid Status Code Detected");
 		Assert.assertEquals(response.getBody().jsonPath().getString("author"), author, "Invalid Author Name Detected");
 		Assert.assertEquals(response.getBody().jsonPath().getString("body"), quote, "Invalid Author Name Detected");
-		Assert.assertTrue(response.getBody().jsonPath().getBoolean("user_details.favorite"), "Quote is Not Hidded Yet");
+		Assert.assertTrue(response.getBody().jsonPath().getBoolean("user_details.favorite"), "Quote is Not Hidden Yet");
 
 	}
 
